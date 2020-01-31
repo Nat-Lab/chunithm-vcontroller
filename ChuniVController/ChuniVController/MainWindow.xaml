@@ -9,7 +9,7 @@
         Title="ChuniController" Height="450" Width="800" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid>
 
-        <local:TouchPad x:Name="Air" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" idleColor="#ccc" activeColor="#000000" keyCode="0x20" />
+        <local:TouchPad x:Name="Air" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" idleColor="#ffffff" activeColor="#000000" keyCode="0x20" />
 
         <local:TouchPad x:Name="Key1" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x41" />
         <local:TouchPad x:Name="Key2" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x42" />
