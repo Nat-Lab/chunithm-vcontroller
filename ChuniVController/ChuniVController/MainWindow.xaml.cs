@@ -86,6 +86,22 @@ namespace ChuniVController
             }
         }
 
+        protected override void OnPreviewKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Space) e.Handled = true; // so that checkboxes won't be trigger by the IR sensor simulation
+            base.OnPreviewKeyDown(e);
+        }
+
+        private void NumericValidation(object sender, TextCompositionEventArgs e)
+        {
+            int _;
+            e.Handled = !int.TryParse(e.Text, out _);
+            if (e.Handled && e.Text.Equals(".") && ((TextBox) sender).Text.IndexOf('.') == -1)
+            {
+                e.Handled = false;
+            }
+        }
+
         private void SetAllowFocus(object sender, RoutedEventArgs e)
         {
             AllowFocus();

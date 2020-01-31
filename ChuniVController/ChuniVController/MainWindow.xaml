@@ -30,11 +30,11 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
             <Label Content="Key width:"  />
-            <TextBox x:Name="KeyWidth" Text="120" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" Height="17" />
+            <TextBox x:Name="KeyWidth" PreviewTextInput="NumericValidation"  Text="120" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" Height="17" />
             <Label Margin="3,0,0,0" Content="Key height:" HorizontalAlignment="Left" />
-            <TextBox x:Name="KeyHeight"  HorizontalAlignment="Left" Text="250" Width="60" Height="17" />
+            <TextBox x:Name="KeyHeight" PreviewTextInput="NumericValidation"  HorizontalAlignment="Left" Text="250" Width="60" Height="17" />
             <Label Margin="3,0,0,0" Content="Sensor height:" />
-            <TextBox x:Name="AirHeight"  Text="300" Margin="3,0,0,0" Width="60" Height="17" />
+            <TextBox x:Name="AirHeight" PreviewTextInput="NumericValidation" Text="300" Margin="3,0,0,0" Width="60" Height="17" />
             <Button Margin="3" Content="Apply" HorizontalAlignment="Left"  Width="75" Click="DoApply" IsDefault="True" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Label Content="Opacity" />
