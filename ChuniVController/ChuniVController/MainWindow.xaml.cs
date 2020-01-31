@@ -24,7 +24,7 @@ namespace ChuniVController
             InitializeComponent();
         }
 
-        
+        private bool drag_locked = false;
         private const int WS_EX_NOACTIVATE = 0x08000000;
         private const int GWL_EXSTYLE = -20;
 
@@ -96,6 +96,11 @@ namespace ChuniVController
             DenyFocus();
         }
 
+        private void DoExit(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
+
         private void DoApply(object sender, RoutedEventArgs e)
         {
             Render();
@@ -111,6 +116,21 @@ namespace ChuniVController
         {
             Air.allowMouse = false;
             foreach (TouchPad t in touchpads) t.allowMouse = false;
+        }
+
+        private void SetLockWindow(object sender, RoutedEventArgs e)
+        {
+            drag_locked = true;
+        }
+
+        private void UnsetLockWindow(object sender, RoutedEventArgs e)
+        {
+            drag_locked = false;
+        }
+
+        private void DoMove(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && !drag_locked) DragMove();
         }
     }
 }
