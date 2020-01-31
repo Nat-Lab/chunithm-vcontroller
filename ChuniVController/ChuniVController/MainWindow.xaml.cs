@@ -109,7 +109,8 @@ namespace ChuniVController
 
         private void UnsetAllowMouse(object sender, RoutedEventArgs e)
         {
-            foreach (TouchPad t in touchpads) t.allowMouse = true;
+            Air.allowMouse = false;
+            foreach (TouchPad t in touchpads) t.allowMouse = false;
         }
     }
 }
