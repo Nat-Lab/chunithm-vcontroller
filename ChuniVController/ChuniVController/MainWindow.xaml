@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChuniVController"
         mc:Ignorable="d"
         Loaded="OnLoad"
-        Title="ChuniController" Height="450" Width="800" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="ChuniController" Height="450" Width="1000" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight"  Opacity="{Binding Value, ElementName=OpacitySlider}" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" BorderThickness="2" MouseDown="DoMove">
     <Grid>
 
         <local:TouchPad x:Name="Air" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" idleColor="#ffffff" activeColor="#000000" keyCode="0x20" />
@@ -28,13 +28,27 @@
         <local:TouchPad x:Name="Key15" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4F" />
         <local:TouchPad x:Name="Key16" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x50" />
 
-        <Label Content="Key width" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="KeyWidth" HorizontalAlignment="Left" Margin="70,0,0,5" Text="120" VerticalAlignment="Bottom" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" />
-        <Label Content="Key height" HorizontalAlignment="Left" Margin="134,1,1,1" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="KeyHeight"  HorizontalAlignment="Left" Margin="207,0,0,5" Text="250" VerticalAlignment="Bottom" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" />
-        <Label Content="Air sensor height" HorizontalAlignment="Left" Margin="270,1,1,1" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="AirHeight"  HorizontalAlignment="Left" Margin="378,0,0,5" Text="300" VerticalAlignment="Bottom" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" />
-        <Button Content="Apply" HorizontalAlignment="Left" Margin="450,0,0,5" VerticalAlignment="Bottom" Width="75" Click="DoApply" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" />
-        <CheckBox x:Name="AllowMouse" Content="Allow Mouse" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Bottom" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
+            <Label Content="Key width:"  />
+            <TextBox x:Name="KeyWidth" Text="120" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" Height="17" />
+            <Label Margin="3,0,0,0" Content="Key height:" HorizontalAlignment="Left" />
+            <TextBox x:Name="KeyHeight"  HorizontalAlignment="Left" Text="250" Width="60" Height="17" />
+            <Label Margin="3,0,0,0" Content="Sensor height:" />
+            <TextBox x:Name="AirHeight"  Text="300" Margin="3,0,0,0" Width="60" Height="17" />
+            <Button Margin="3" Content="Apply" HorizontalAlignment="Left"  Width="75" Click="DoApply" IsDefault="True" />
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Label Content="Opacity" />
+            <Slider Margin="3" x:Name="OpacitySlider" Width="100" Maximum="1" Minimum="0.1" Value="1" TickFrequency="0.01" SmallChange="0.01" LargeChange="0.1"/>
+            <CheckBox Margin="3" Content="Allow Mouse" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" Height="17" />
+            <CheckBox Margin="3" Content="Lock Window" Checked="SetLockWindow" Unchecked="UnsetLockWindow" Height="17" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
+            <Button Margin="3"  Content="Exit" Width="75" Click="DoExit" IsCancel="True" />
+        </StackPanel>
+
+
+
+
     </Grid>
 </Window>
