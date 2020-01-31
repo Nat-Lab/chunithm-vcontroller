@@ -8,6 +8,31 @@
         Loaded="OnLoad"
         Title="ChuniController" Height="450" Width="800" Topmost="True" ShowActivated="False" ResizeMode="NoResize">
     <Grid>
-        <local:TouchPad Height="200" Width="100" idleColor="#000" activeColor="#fff" keyCode="0x4c" />
+        <local:TouchPad x:Name="Air" HorizontalAlignment="Stretch" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x20" />
+
+        <local:TouchPad x:Name="Key1" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x41" />
+        <local:TouchPad x:Name="Key2" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x42" />
+        <local:TouchPad x:Name="Key3" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x43" />
+        <local:TouchPad x:Name="Key4" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x44" />
+        <local:TouchPad x:Name="Key5" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x45" />
+        <local:TouchPad x:Name="Key6" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x46" />
+        <local:TouchPad x:Name="Key7" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x47" />
+        <local:TouchPad x:Name="Key8" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x48" />
+        <local:TouchPad x:Name="Key9" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x49" />
+        <local:TouchPad x:Name="Key10" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4A" />
+        <local:TouchPad x:Name="Key11" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4B" />
+        <local:TouchPad x:Name="Key12" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4C" />
+        <local:TouchPad x:Name="Key13" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4D" />
+        <local:TouchPad x:Name="Key14" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4E" />
+        <local:TouchPad x:Name="Key15" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x4F" />
+        <local:TouchPad x:Name="Key16" HorizontalAlignment="Left" VerticalAlignment="Bottom" idleColor="#ffffff" activeColor="#000000" keyCode="0x50" />      
+
+        <Label Content="Key width" HorizontalAlignment="Left" Margin="1" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="KeyWidth" HorizontalAlignment="Left" Margin="70,0,0,5" Text="130" VerticalAlignment="Bottom" Width="60"/>
+        <Label Content="Key height" HorizontalAlignment="Left" Margin="134,1,1,1" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="KeyHeight"  HorizontalAlignment="Left" Margin="207,0,0,5" Text="250" VerticalAlignment="Bottom" Width="60"/>
+        <Label Content="Air sensor height" HorizontalAlignment="Left" Margin="270,1,1,1" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="AirHeight"  HorizontalAlignment="Left" Margin="378,0,0,5" Text="300" VerticalAlignment="Bottom" Width="60"/>
+        <Button Content="Apply" HorizontalAlignment="Left" Margin="450,0,0,5" VerticalAlignment="Bottom" Width="75" Click="DoApply"/>
     </Grid>
 </Window>
