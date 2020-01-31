@@ -36,35 +36,44 @@ namespace ChuniVController
         [DllImport("user32", SetLastError = true)]
         private extern static int SetWindowLong(IntPtr hwnd, int nIndex, int dwNewValue);
 
-        private void OnLoad(object sender, RoutedEventArgs e)
+        private void DenyFocus ()
         {
-            // make the window unforcusable
-            /*WindowInteropHelper wih = new WindowInteropHelper(this);
+            WindowInteropHelper wih = new WindowInteropHelper(this);
             int exstyle = GetWindowLong(wih.Handle, GWL_EXSTYLE);
             exstyle |= WS_EX_NOACTIVATE;
-            SetWindowLong(wih.Handle, GWL_EXSTYLE, exstyle);*/
+            SetWindowLong(wih.Handle, GWL_EXSTYLE, exstyle);
+        }
 
+        private void AllowFocus()
+        {
+            // make the window unforcusable
+            WindowInteropHelper wih = new WindowInteropHelper(this);
+            int exstyle = GetWindowLong(wih.Handle, GWL_EXSTYLE);
+            exstyle &= ~WS_EX_NOACTIVATE;
+            SetWindowLong(wih.Handle, GWL_EXSTYLE, exstyle);
+        }
+
+        private void OnLoad(object sender, RoutedEventArgs e)
+        {
             touchpads = new TouchPad[] { Key1, Key2, Key3, Key4, Key5, Key6, Key7, Key8, Key9, Key10, Key11, Key12, Key13, Key14, Key15, Key16 };
             Render();
+
+            // make the window unforcusable
+            DenyFocus();
         }
+
+        
 
         private void Render()
         {
-            double keyw = 130;
+            double keyw = 120;
             double keyh = 250;
             double airh = 300;
             double.TryParse(KeyWidth.Text, out keyw);
             double.TryParse(KeyHeight.Text, out keyh);
             double.TryParse(AirHeight.Text, out airh);
 
-            double toth = keyh + airh;
-            double totw = keyw * 16 + 20;
-
-            this.Height = toth + 75;
-            this.Width = totw;
-
-            Air.Height = airh;
-            Air.Width = totw;
+            Air.Margin = new Thickness(0, 0, 0, keyh + 35);
 
             double left_offset = 0;
 
@@ -72,14 +81,35 @@ namespace ChuniVController
             {
                 t.Height = keyh;
                 t.Width = keyw;
-                t.Margin = new Thickness(left_offset, 0, 0, 35);
+                t.Margin = new Thickness(left_offset, airh, 0, 35);
                 left_offset += keyw;
             }
+        }
+
+        private void SetAllowFocus(object sender, RoutedEventArgs e)
+        {
+            AllowFocus();
+        }
+
+        private void SetDenyFocus(object sender, RoutedEventArgs e)
+        {
+            DenyFocus();
         }
 
         private void DoApply(object sender, RoutedEventArgs e)
         {
             Render();
+        }
+
+        private void SetAllowMouse(object sender, RoutedEventArgs e)
+        {
+            Air.allowMouse = true;
+            foreach (TouchPad t in touchpads) t.allowMouse = true;
+        }
+
+        private void UnsetAllowMouse(object sender, RoutedEventArgs e)
+        {
+            foreach (TouchPad t in touchpads) t.allowMouse = true;
         }
     }
 }

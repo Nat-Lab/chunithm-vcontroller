@@ -29,6 +29,8 @@ namespace ChuniVController
         public string idleColor { get; set; }
         public string activeColor { get; set; }
         public byte keyCode { get; set; }
+
+        public bool allowMouse { get; set; } = false;
         public TouchPad()
         {
             InitializeComponent();
@@ -48,13 +50,13 @@ namespace ChuniVController
 
         protected override void OnMouseEnter(MouseEventArgs e)
         {
-            Press();
+            if (allowMouse) Press();
             base.OnMouseEnter(e);
         }
 
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            Release();
+            if (allowMouse) Release();
             base.OnMouseLeave(e);
         }
 
