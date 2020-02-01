@@ -50,7 +50,7 @@ HRESULT chuni_io_jvs_init(void)
     local.sin_family = AF_INET;
     local.sin_port = htons(chuni_port);
 
-    DWORD timeout = 1000;
+    DWORD timeout = 10;
     if (setsockopt(chuni_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(DWORD)) != 0) {
         log_error("setsockopt() failed.\n",);
         return S_FALSE;
@@ -61,7 +61,7 @@ HRESULT chuni_io_jvs_init(void)
         return S_FALSE;
     }
 
-    log_info("initialization completed.\n");
+    log_info("server socket initialization completed.\n");
 
     return S_OK;
 }
@@ -130,7 +130,6 @@ void chuni_io_slider_stop(void)
 
     WaitForSingleObject(chuni_io_slider_thread, INFINITE);
     CloseHandle(chuni_io_slider_thread);
-    closesocket(chuni_socket);
     chuni_io_slider_thread = NULL;
     chuni_io_slider_stop_flag = false;
 }
