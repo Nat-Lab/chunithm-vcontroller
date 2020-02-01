@@ -59,6 +59,10 @@ cell2=0x50
 cell1=0x50
 ```
 
+### To-dos
+
+- Handle IO ourselves. Deal with LEDs.
+
 ### License
 
 UNLICENSE
