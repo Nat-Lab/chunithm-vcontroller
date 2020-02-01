@@ -19,9 +19,22 @@ namespace ChuniVController
 {
     public partial class MainWindow : Window
     {
+        private ChuniIO cio;
+
+        private void handleRecv(ChuniIoMessage message)
+        {
+            if (message.Source != (byte)ChuniMessageSources.Game || message.Type != (byte)ChuniMessageTypes.LedSet || message.Target >= 16) return;
+            touchpads[message.Target].LedStrip.Dispatcher.BeginInvoke(
+                (Action) (() => touchpads[15 - message.Target].LedStrip.Fill =
+                    new SolidColorBrush(Color.FromRgb(message.LedColorRed, message.LedColorGreen,
+                        message.LedColorBlue))));
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            cio = new ChuniIO("127.0.0.1", 24864, handleRecv);
+            cio.Start();
         }
 
         private bool drag_locked = false;
@@ -29,6 +42,7 @@ namespace ChuniVController
         private const int GWL_EXSTYLE = -20;
 
         private TouchPad[] touchpads;
+        private TouchPad[] irs;
 
         [DllImport("user32", SetLastError = true)]
         private extern static int GetWindowLong(IntPtr hwnd, int nIndex);
@@ -55,34 +69,41 @@ namespace ChuniVController
 
         private void OnLoad(object sender, RoutedEventArgs e)
         {
-            touchpads = new TouchPad[] { Key1, Key2, Key3, Key4, Key5, Key6, Key7, Key8, Key9, Key10, Key11, Key12, Key13, Key14, Key15, Key16 };
+            touchpads = new TouchPad[] { Key0, Key1, Key2, Key3, Key4, Key5, Key6, Key7, Key8, Key9, Key10, Key11, Key12, Key13, Key14, Key15 };
+            irs = new TouchPad[] { Ir0, Ir1, Ir2, Ir3, Ir4, Ir5 };
+            foreach (TouchPad t in touchpads) t.io = cio;
+            foreach (TouchPad t in irs) t.io = cio;
+
             Render();
 
             // make the window unforcusable
             DenyFocus();
         }
 
-        
+        protected override void OnClosed(EventArgs e)
+        {
+            cio.Stop();
+            base.OnClosed(e);
+        }
 
         private void Render()
         {
-            double keyw = 120;
-            double keyh = 250;
-            double airh = 300;
+            double keyw = 80;
+            double keyh = 200;
+            double airh = 30;
             double.TryParse(KeyWidth.Text, out keyw);
             double.TryParse(KeyHeight.Text, out keyh);
             double.TryParse(AirHeight.Text, out airh);
 
-            Air.Margin = new Thickness(0, 0, 0, keyh + 35);
-
-            double left_offset = 0;
+            foreach (TouchPad t in irs)
+            {
+                t.Height = airh;
+            }
 
             foreach (TouchPad t in touchpads)
             {
                 t.Height = keyh;
                 t.Width = keyw;
-                t.Margin = new Thickness(left_offset, airh, 0, 35);
-                left_offset += keyw;
             }
         }
 
@@ -114,7 +135,7 @@ namespace ChuniVController
 
         private void DoExit(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
         private void DoApply(object sender, RoutedEventArgs e)
@@ -122,15 +143,39 @@ namespace ChuniVController
             Render();
         }
 
+        private void DoCoin(object sender, RoutedEventArgs e)
+        {
+            ChuniIoMessage msg = new ChuniIoMessage();
+            msg.Source = (byte)ChuniMessageSources.Controller;
+            msg.Type = (byte)ChuniMessageTypes.CoinInsert;
+            cio.Send(msg);
+        }
+
+        private void DoTest(object sender, RoutedEventArgs e)
+        {
+            ChuniIoMessage msg = new ChuniIoMessage();
+            msg.Source = (byte)ChuniMessageSources.Controller;
+            msg.Type = (byte)ChuniMessageTypes.CabinetTest;
+            cio.Send(msg);
+        }
+
+        private void DoService(object sender, RoutedEventArgs e)
+        {
+            ChuniIoMessage msg = new ChuniIoMessage();
+            msg.Source = (byte)ChuniMessageSources.Controller;
+            msg.Type = (byte)ChuniMessageTypes.CabinetService;
+            cio.Send(msg);
+        }
+
         private void SetAllowMouse(object sender, RoutedEventArgs e)
         {
-            Air.allowMouse = true;
+            foreach (TouchPad t in irs) t.allowMouse = true;
             foreach (TouchPad t in touchpads) t.allowMouse = true;
         }
 
         private void UnsetAllowMouse(object sender, RoutedEventArgs e)
         {
-            Air.allowMouse = false;
+            foreach (TouchPad t in irs) t.allowMouse = false;
             foreach (TouchPad t in touchpads) t.allowMouse = false;
         }
 

@@ -7,8 +7,8 @@
 #endif
 
 typedef enum {
-	SRC_GAME,
-	SRC_CONTROLLER
+	SRC_GAME = 0 ,
+	SRC_CONTROLLER = 1
 } chuni_msg_src_t;
 
 typedef enum {
@@ -23,14 +23,16 @@ typedef enum {
 } chuni_msg_type_t;
 
 typedef struct {
-	chuni_msg_src_t src;
-	chuni_msg_type_t type;
+	uint8_t src;
+	uint8_t type;
 
 	// For SLIDER_*, IR_* and LED_SET. Index of the target SLIDER/LED/IR_SENSOR
 	uint8_t target;
 
 	// for LED_SET only
-	uint32_t led_color;
+	uint8_t led_color_r;
+	uint8_t led_color_g;
+	uint8_t led_color_b;
 } chuni_msg_t;
 
 typedef void (*chuni_io_slider_callback_t)(const uint8_t* state);

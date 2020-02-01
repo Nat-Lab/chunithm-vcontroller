@@ -6,49 +6,59 @@
         xmlns:local="clr-namespace:ChuniVController"
         mc:Ignorable="d"
         Loaded="OnLoad"
-        Title="ChuniController" Height="450" Width="1000" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight"  Opacity="{Binding Value, ElementName=OpacitySlider}" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" BorderThickness="2" MouseDown="DoMove">
-    <Grid>
+        Title="ChuniController" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight"  Opacity="{Binding Value, ElementName=OpacitySlider}" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" BorderThickness="2" MouseDown="DoMove">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-        <local:TouchPad x:Name="Air" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" idleColor="#ffffff" activeColor="#000000" keyCode="0x20" />
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <local:TouchPad x:Name="Ir5" Height="30" ioType="IR" ioTarget="5" localColoring="True" idleColor="#000" activeColor="#fff" />
+            <local:TouchPad x:Name="Ir4" Height="30" ioType="IR" ioTarget="4" localColoring="True" idleColor="#000" activeColor="#fff" />
+            <local:TouchPad x:Name="Ir3" Height="30" ioType="IR" ioTarget="3" localColoring="True" idleColor="#000" activeColor="#fff" />
+            <local:TouchPad x:Name="Ir2" Height="30" ioType="IR" ioTarget="2" localColoring="True" idleColor="#000" activeColor="#fff" />
+            <local:TouchPad x:Name="Ir1" Height="30" ioType="IR" ioTarget="1" localColoring="True" idleColor="#000" activeColor="#fff" />
+            <local:TouchPad x:Name="Ir0" Height="30" ioType="IR" ioTarget="0" localColoring="True" idleColor="#000" activeColor="#fff" />
+        </StackPanel>
 
-        <local:TouchPad x:Name="Key1" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x41" />
-        <local:TouchPad x:Name="Key2" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x42" />
-        <local:TouchPad x:Name="Key3" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x43" />
-        <local:TouchPad x:Name="Key4" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x44" />
-        <local:TouchPad x:Name="Key5" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x45" />
-        <local:TouchPad x:Name="Key6" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x46" />
-        <local:TouchPad x:Name="Key7" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x47" />
-        <local:TouchPad x:Name="Key8" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x48" />
-        <local:TouchPad x:Name="Key9" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x49" />
-        <local:TouchPad x:Name="Key10" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4A" />
-        <local:TouchPad x:Name="Key11" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4B" />
-        <local:TouchPad x:Name="Key12" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4C" />
-        <local:TouchPad x:Name="Key13" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4D" />
-        <local:TouchPad x:Name="Key14" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4E" />
-        <local:TouchPad x:Name="Key15" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x4F" />
-        <local:TouchPad x:Name="Key16" HorizontalAlignment="Left" VerticalAlignment="Top" idleColor="#ffffff" activeColor="#000000" keyCode="0x50" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <local:TouchPad x:Name="Key0" ioType="Slider" Height="200" Width="80" ioTarget="15" />
+            <local:TouchPad x:Name="Key1" ioType="Slider" Height="200" Width="80" ioTarget="14" />
+            <local:TouchPad x:Name="Key2" ioType="Slider" Height="200" Width="80" ioTarget="13" />
+            <local:TouchPad x:Name="Key3" ioType="Slider" Height="200" Width="80" ioTarget="12" />
+            <local:TouchPad x:Name="Key4" ioType="Slider" Height="200" Width="80" ioTarget="11" />
+            <local:TouchPad x:Name="Key5" ioType="Slider" Height="200" Width="80" ioTarget="10" />
+            <local:TouchPad x:Name="Key6" ioType="Slider" Height="200" Width="80" ioTarget="9" />
+            <local:TouchPad x:Name="Key7" ioType="Slider" Height="200" Width="80" ioTarget="8" />
+            <local:TouchPad x:Name="Key8" ioType="Slider" Height="200" Width="80" ioTarget="7" />
+            <local:TouchPad x:Name="Key9" ioType="Slider" Height="200" Width="80" ioTarget="6" />
+            <local:TouchPad x:Name="Key10" ioType="Slider" Height="200" Width="80" ioTarget="5" />
+            <local:TouchPad x:Name="Key11" ioType="Slider" Height="200" Width="80" ioTarget="4" />
+            <local:TouchPad x:Name="Key12" ioType="Slider" Height="200" Width="80" ioTarget="3" />
+            <local:TouchPad x:Name="Key13" ioType="Slider" Height="200" Width="80" ioTarget="2" />
+            <local:TouchPad x:Name="Key14" ioType="Slider" Height="200" Width="80" ioTarget="1" />
+            <local:TouchPad x:Name="Key15" ioType="Slider" Height="200" Width="80" ioTarget="0" />
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
             <Label Content="Key width:"  />
-            <TextBox x:Name="KeyWidth" PreviewTextInput="NumericValidation"  Text="120" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" Height="17" />
+            <TextBox x:Name="KeyWidth" PreviewTextInput="NumericValidation"  Text="80" Width="60" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" Height="17" />
             <Label Margin="3,0,0,0" Content="Key height:" HorizontalAlignment="Left" />
-            <TextBox x:Name="KeyHeight" PreviewTextInput="NumericValidation"  HorizontalAlignment="Left" Text="250" Width="60" Height="17" />
+            <TextBox x:Name="KeyHeight" PreviewTextInput="NumericValidation"  HorizontalAlignment="Left" Text="200" Width="60" Height="17" />
             <Label Margin="3,0,0,0" Content="Sensor height:" />
-            <TextBox x:Name="AirHeight" PreviewTextInput="NumericValidation" Text="300" Margin="3,0,0,0" Width="60" Height="17" />
+            <TextBox x:Name="AirHeight" PreviewTextInput="NumericValidation" Text="30" Margin="3,0,0,0" Width="60" Height="17" />
             <Button Margin="3" Content="Apply" HorizontalAlignment="Left"  Width="75" Click="DoApply" IsDefault="True" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Label Content="Opacity" />
             <Slider Margin="3" x:Name="OpacitySlider" Width="100" Maximum="1" Minimum="0.1" Value="1" TickFrequency="0.01" SmallChange="0.01" LargeChange="0.1"/>
             <CheckBox Margin="3" Content="Allow Mouse" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" Height="17" />
             <CheckBox Margin="3" Content="Lock Window" Checked="SetLockWindow" Unchecked="UnsetLockWindow" Height="17" />
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="1" MouseEnter="SetAllowFocus" MouseLeave="SetDenyFocus" >
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+            <Button Margin="3" Content="Coin" HorizontalAlignment="Left"  Width="75" Click="DoCoin" />
+            <Button Margin="3" Content="Service" HorizontalAlignment="Left"  Width="75" Click="DoService" />
+            <Button Margin="3" Content="Test" HorizontalAlignment="Left"  Width="75" Click="DoTest" />
+            <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Button Margin="3"  Content="Exit" Width="75" Click="DoExit" IsCancel="True" />
         </StackPanel>
 
-
-
-
-    </Grid>
+    </StackPanel>
 </Window>

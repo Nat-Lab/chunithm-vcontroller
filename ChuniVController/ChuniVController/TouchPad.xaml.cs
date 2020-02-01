@@ -18,34 +18,43 @@ namespace ChuniVController
 {
     public partial class TouchPad : UserControl
     {
-
-        // use old "keybd_event" so we can controll keyup/keydown ourself
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern void keybd_event(byte key, byte scan, int flags, int info);
-
-        private const int KEYEVENTF_EXTENDEDKEY = 0x0001; // keydown
-        private const int KEYEVENTF_KEYUP = 0x0002; // keyup
-
-        public string idleColor { get; set; }
-        public string activeColor { get; set; }
-        public byte keyCode { get; set; }
+        public enum IoType
+        {
+            IR = 0,
+            Slider = 1
+        }
 
         public bool allowMouse { get; set; } = false;
+        public bool localColoring { get; set; } = false;
+        public Brush activeColor { get; set; }
+        public Brush idleColor { get; set; }
+
+        public ChuniIO io { get; set; }
+        public IoType ioType { get; set; }
+        public byte ioTarget { get; set; }
+
+        private ChuniIoMessage message;
         public TouchPad()
         {
             InitializeComponent();
+            message = new ChuniIoMessage();
+            message.Source = (byte)ChuniMessageSources.Controller;
         }
 
-        protected void Press()
+        private void Press()
         {
-            keybd_event(keyCode, 0, KEYEVENTF_EXTENDEDKEY, 0);
-            LedStrip.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(activeColor));
+            if (localColoring) LedStrip.Fill = activeColor;
+            message.Target = ioTarget;
+            message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderPress : ChuniMessageTypes.IrBlocked);
+            io.Send(message);
         }
 
-        protected void Release()
+        private void Release()
         {
-            keybd_event(keyCode, 0, KEYEVENTF_KEYUP, 0);
-            LedStrip.Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom(idleColor));
+            if (localColoring) LedStrip.Fill = idleColor;
+            message.Target = ioTarget;
+            message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderRelease : ChuniMessageTypes.IrUnblocked);
+            io.Send(message);
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
