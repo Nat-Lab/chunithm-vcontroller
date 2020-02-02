@@ -19,6 +19,7 @@ Lock Window|Lock the window in the current position. (disable dragging)
 Coin|Insert coin.
 Service|Service button.
 Test|Test button.
+S+T|Press "Service" and "Test" at the same time.
 Exit|Exit.
 
 ### Usage
