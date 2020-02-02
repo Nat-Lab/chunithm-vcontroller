@@ -159,6 +159,16 @@ namespace ChuniVController
             cio.Send(msg);
         }
 
+        private void DoServiceTest(object sender, RoutedEventArgs e)
+        {
+            ChuniIoMessage msg = new ChuniIoMessage();
+            msg.Source = (byte)ChuniMessageSources.Controller;
+            msg.Type = (byte)ChuniMessageTypes.CabinetTest;
+            cio.Send(msg);
+            msg.Type = (byte)ChuniMessageTypes.CabinetService;
+            cio.Send(msg);
+        }
+
         private void DoService(object sender, RoutedEventArgs e)
         {
             ChuniIoMessage msg = new ChuniIoMessage();

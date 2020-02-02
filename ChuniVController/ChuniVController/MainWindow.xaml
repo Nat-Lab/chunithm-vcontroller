@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChuniVController"
         mc:Ignorable="d"
         Loaded="OnLoad"
-        Title="ChuniController" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight"  Opacity="{Binding Value, ElementName=OpacitySlider}" AllowsTransparency="True" WindowStyle="None" BorderBrush="Black" BorderThickness="2" MouseDown="DoMove">
+        Title="ChuniController" Topmost="True" ShowActivated="False" ResizeMode="NoResize" SizeToContent="WidthAndHeight"  Opacity="{Binding Value, ElementName=OpacitySlider}" AllowsTransparency="True" WindowStyle="None" BorderBrush="#ccc" BorderThickness="2" MouseDown="DoMove">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
         
@@ -46,18 +46,19 @@
             <TextBox x:Name="KeyHeight" PreviewTextInput="NumericValidation"  HorizontalAlignment="Left" Text="200" Width="60" Height="17" />
             <Label Margin="3,0,0,0" Content="Sensor height:" />
             <TextBox x:Name="AirHeight" PreviewTextInput="NumericValidation" Text="30" Margin="3,0,0,0" Width="60" Height="17" />
-            <Button Margin="3" Content="Apply" HorizontalAlignment="Left"  Width="75" Click="DoApply" IsDefault="True" />
+            <Button Margin="3" Content="Apply" HorizontalAlignment="Left"  Width="50" Click="DoApply" IsDefault="True" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Label Content="Opacity" />
             <Slider Margin="3" x:Name="OpacitySlider" Width="100" Maximum="1" Minimum="0.1" Value="1" TickFrequency="0.01" SmallChange="0.01" LargeChange="0.1"/>
             <CheckBox Margin="3" Content="Allow Mouse" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" Height="17" />
             <CheckBox Margin="3" Content="Lock Window" Checked="SetLockWindow" Unchecked="UnsetLockWindow" Height="17" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-            <Button Margin="3" Content="Coin" HorizontalAlignment="Left"  Width="75" Click="DoCoin" />
-            <Button Margin="3" Content="Service" HorizontalAlignment="Left"  Width="75" Click="DoService" />
-            <Button Margin="3" Content="Test" HorizontalAlignment="Left"  Width="75" Click="DoTest" />
+            <Button Margin="3" Content="Coin" HorizontalAlignment="Left"  Width="50" Click="DoCoin" />
+            <Button Margin="3" Content="Service" HorizontalAlignment="Left"  Width="50" Click="DoService" />
+            <Button Margin="3" Content="Test" HorizontalAlignment="Left"  Width="50" Click="DoTest" />
+            <Button Margin="3" Content="S+T" HorizontalAlignment="Left"  Width="50" Click="DoServiceTest" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-            <Button Margin="3"  Content="Exit" Width="75" Click="DoExit" IsCancel="True" />
+            <Button Margin="3"  Content="Exit" Width="50" Click="DoExit" IsCancel="True" />
         </StackPanel>
 
     </StackPanel>
