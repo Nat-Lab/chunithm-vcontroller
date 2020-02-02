@@ -32,7 +32,7 @@ HRESULT chuni_io_jvs_init(void)
     FILE* fp;
     freopen_s(&fp, "CONOUT$", "w", stdout);
 
-    log_debug("allocated debug console.\n");
+    log_info("allocated debug console.\n");
 
     struct sockaddr_in local;
     memset(&local, 0, sizeof(struct sockaddr_in));
@@ -52,12 +52,6 @@ HRESULT chuni_io_jvs_init(void)
     local.sin_addr.s_addr = INADDR_ANY; // TODO: make configurable
     local.sin_family = AF_INET;
     local.sin_port = htons(chuni_port);
-
-    DWORD timeout = 10;
-    if (setsockopt(chuni_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(DWORD)) != 0) {
-        log_error("setsockopt() failed.\n",);
-        return S_FALSE;
-    }
 
     if (bind(chuni_socket, (struct sockaddr*) & local, sizeof(struct sockaddr_in)) == SOCKET_ERROR) {
         log_error("bind() failed.\n");
@@ -160,7 +154,7 @@ void chuni_io_slider_set_leds(const uint8_t* rgb)
     for (uint8_t i = 0; i < 96; i += 6) {
         if (rgb[i] != prev_rgb_status[i] || rgb[i + 1] != prev_rgb_status[i + 1] || rgb[i + 2] != prev_rgb_status[i + 2]) {
             uint8_t n = i / 6;
-            log_debug("SET_LED[%d]: rgb(%d, %d, %d)\n", n, rgb[i + 1], rgb[i + 2], rgb[i]);
+            //log_debug("SET_LED[%d]: rgb(%d, %d, %d)\n", n, rgb[i + 1], rgb[i + 2], rgb[i]);
             if (!remote_exist) log_warn("remote does not exist.\n");
             else {
                 message.target = n;
@@ -201,11 +195,11 @@ static unsigned int __stdcall chuni_io_network_thread_proc(void* ctx) {
             }
             switch (msg->type) {
             case COIN_INSERT:
-                log_debug("adding coin.\n");
+                log_info("adding coin.\n");
                 chuni_coin_pending = true;
                 break;
             case SLIDER_PRESS:
-                log_debug("slider_press at %d.\n", msg->target);
+                //log_debug("slider_press at %d.\n", msg->target);
                 if (msg->target >= 16) log_error("invalid slider value %d in SLIDER_PRESS.\n", msg->target);
                 else {
                     chuni_sliders[(msg->target) * 2] = 128;
@@ -213,7 +207,7 @@ static unsigned int __stdcall chuni_io_network_thread_proc(void* ctx) {
                 }
                 break;
             case SLIDER_RELEASE:
-                log_debug("slider released on %d.\n", msg->target);
+                //log_debug("slider released on %d.\n", msg->target);
                 if (msg->target >= 16) log_error("invalid slider value %d in SLIDER_RELEASE.\n", msg->target);
                 else {
                     chuni_sliders[(msg->target) * 2] = 0;
@@ -221,20 +215,20 @@ static unsigned int __stdcall chuni_io_network_thread_proc(void* ctx) {
                 }
                 break;
             case CABINET_TEST:
-                log_debug("setting cabinet_test.\n");
+                log_info("setting cabinet_test.\n");
                 chuni_test_pending = true;
                 break;
             case CABINET_SERVICE:
-                log_debug("setting cabinet_service.\n");
+                log_info("setting cabinet_service.\n");
                 chuni_service_pending = true;
                 break;
             case IR_BLOCKED:
-                log_debug("ir %d blokced.\n", msg->target);
+                //log_debug("ir %d blokced.\n", msg->target);
                 if (msg->target >= 6) log_error("invalid slider value %d in IR_BLOCKED.\n", msg->target);
                 else chuni_io_ir(msg->target, true);
                 break;
             case IR_UNBLOCKED:
-                log_debug("ir %d unblokced.\n", msg->target);
+                //log_debug("ir %d unblokced.\n", msg->target);
                 if (msg->target >= 6) log_error("invalid slider value %d in IR_UNBLOCKED.\n", msg->target);
                 else chuni_io_ir(msg->target, false);
                 break;
