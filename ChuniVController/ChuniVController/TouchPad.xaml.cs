@@ -34,6 +34,7 @@ namespace ChuniVController
         public byte ioTarget { get; set; }
 
         private ChuniIoMessage message;
+        private int fingers = 0;
         public TouchPad()
         {
             InitializeComponent();
@@ -43,18 +44,26 @@ namespace ChuniVController
 
         private void Press()
         {
-            if (localColoring) LedStrip.Fill = activeColor;
-            message.Target = ioTarget;
-            message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderPress : ChuniMessageTypes.IrBlocked);
-            io.Send(message);
+            fingers++;
+            if (fingers == 1) // send only the first finger
+            {
+                if (localColoring) LedStrip.Fill = activeColor;
+                message.Target = ioTarget;
+                message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderPress : ChuniMessageTypes.IrBlocked);
+                io.Send(message);
+            }
         }
 
         private void Release()
         {
-            if (localColoring) LedStrip.Fill = idleColor;
-            message.Target = ioTarget;
-            message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderRelease : ChuniMessageTypes.IrUnblocked);
-            io.Send(message);
+            fingers--;
+            if (fingers == 0) // send only if no more fingers touched
+            {
+                if (localColoring) LedStrip.Fill = idleColor;
+                message.Target = ioTarget;
+                message.Type = (byte)(ioType == IoType.Slider ? ChuniMessageTypes.SliderRelease : ChuniMessageTypes.IrUnblocked);
+                io.Send(message);
+            }
         }
 
         protected override void OnMouseEnter(MouseEventArgs e)
