@@ -50,8 +50,8 @@
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Label Content="Opacity" />
             <Slider Margin="3" x:Name="OpacitySlider" Width="100" Maximum="1" Minimum="0.1" Value="1" TickFrequency="0.01" SmallChange="0.01" LargeChange="0.1"/>
-            <CheckBox Margin="3" Content="Allow Mouse" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" Height="17" />
-            <CheckBox Margin="3" Content="Lock Window" Checked="SetLockWindow" Unchecked="UnsetLockWindow" Height="17" />
+            <CheckBox x:Name="AllowMouse" Margin="3" Content="Allow Mouse" Checked="SetAllowMouse" Unchecked="UnsetAllowMouse" Height="17" />
+            <CheckBox x:Name="LockWindow" Margin="3" Content="Lock Window" Checked="SetLockWindow" Unchecked="UnsetLockWindow" Height="17" />
             <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
             <Button Margin="3" Content="Coin" HorizontalAlignment="Left"  Width="50" Click="DoCoin" />
             <Button Margin="3" Content="Service" HorizontalAlignment="Left"  Width="50" Click="DoService" />

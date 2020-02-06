@@ -14,12 +14,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NHotkey;
+using NHotkey.Wpf;
 
 namespace ChuniVController
 {
     public partial class MainWindow : Window
     {
-        private ChuniIO cio;
+        private readonly ChuniIO cio;
 
         private void handleRecv(ChuniIoMessage message)
         {
@@ -35,6 +37,20 @@ namespace ChuniVController
             InitializeComponent();
             cio = new ChuniIO("127.0.0.1", 24864, handleRecv);
             cio.Start();
+
+            HotkeyManager.Current.AddOrReplace("Lock", Key.L, ModifierKeys.Alt, ToggleLockWindow);
+            HotkeyManager.Current.AddOrReplace("Opacity", Key.O, ModifierKeys.Alt, ToggleFullOpacity);
+        }
+
+        private void ToggleLockWindow(object sender, HotkeyEventArgs e)
+        {
+            LockWindow.IsChecked = !drag_locked;
+        }
+
+        private void ToggleFullOpacity(object sender, HotkeyEventArgs e)
+        {
+            if (Opacity > 0) Opacity = 0;
+            else Opacity = 1;
         }
 
         private bool drag_locked = false;
@@ -109,7 +125,7 @@ namespace ChuniVController
 
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Space) e.Handled = true; // so that checkboxes won't be trigger by the IR sensor simulation
+            if (e.Key == Key.Enter) e.Handled = true; // so if user do aime simulation it won't triggers button
             base.OnPreviewKeyDown(e);
         }
 
